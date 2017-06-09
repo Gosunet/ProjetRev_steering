@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>A-FRAME : Basic scene</title>
+	<style>
+   		 canvas {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+			background-color: #aa0000;
+    	}
+	</style>
+    <script src="dist/aframe-master.min.js"></script>
+ </head>
+ <body>
+
+  <a-scene id="scene">
+
+
+      
+   
+
+        <!-- Le décor -->
+        <!-- ======== -->
+
+        <a-assets>
+          <a-asset-item id="chair-obj" src="assets/models/chair/chair.obj"></a-asset-item>
+          <a-asset-item id="chair-mtl" src="assets/models/chair/chair.mtl"></a-asset-item>
+
+          <a-asset-item id="tux-obj" src="assets/models/penguin/penguin.obj"></a-asset-item>
+          <a-asset-item id="tux-mtl" src="assets/models/penguin/penguin.mtl"></a-asset-item>
+
+
+         <a-asset-item id="murs-obj" src="assets/models/murs.obj"></a-asset-item>
+
+        </a-assets>
+
+        <a-camera fov="50.0"></a-camera>
+
+
+        <a-entity 
+		obj-model="obj: #chair-obj; mtl: #chair-mtl" 
+		position = "0 0 0"  scale="0.01 0.01 0.01" rotation = "0 90 0" ></a-entity>
+
+       <a-entity 
+		obj-model="obj: #tux-obj; mtl: #tux-mtl" 
+		position = "0 0 -3"   rotation = "0 90 0" ></a-entity>	
+
+        <a-entity 
+		obj-model="obj: #murs-obj; mtl: #chair-mtl" 
+        ></a-entity>
+
+       <a-image src="assets/textures/plage.jpg"
+                width="3" height="2"
+                position="2 2 -9.9"></a-image>
+
+      <a-plane width="3" height="2" color="#AAC" 
+               position="-3 2 -9.9"></a-plane>
+
+      <a-image id="Sol" width="30" height="20" rotation="-90 0 0" src="assets/textures/plage.jpg"></a-image>
+
+
+     	<!-- on place un repère dans la scène -->
+        <!-- ================================ -->
+  
+
+
+  		<a-cylinder height="3.0" color="green"  radius="0.05" position="0.0 1.5 0.0"></a-cylinder>
+  		<a-cylinder height="3.0" color="red"    radius="0.05" position="1.5 0.0 0.0"  rotation="0 0 -90"></a-cylinder>
+  		<a-cylinder height="3.0" color="blue"   radius="0.05" position="0.0 0.0 1.5"  rotation="90 0 0"></a-cylinder>
+    
+		<a-sphere radius="0.2" color="red"   position="4 0 0"></a-sphere>
+		<a-sphere radius="0.2" color="green" position="0 4 0"></a-sphere>
+		<a-sphere radius="0.2" color="blue"  position="0 0 4"></a-sphere>
+
+  </a-scene>
+
+
+  <script>
+    var sceneEl = document.getElementById("scene"); 
+    var el = document.createElement("a-entity") ; 
+    
+  </script>
+
+ </body>
+</html>
