@@ -13,10 +13,8 @@ function main(){
 		var distance = vec3Norme(Fs);
 		vec3Normaliser(Fs);
 
-		if (distance < 0.25) {
-			this.update= STATES["waiting"].update;
-			return;
-		}
+		if (distance < 0.25) 
+			return this.update= STATES["waiting"].update;
 
 		var k = 1.0;
 
@@ -41,32 +39,43 @@ function main(){
 		if (this.vit > 0.00001) {
 			var rot = this.gr.getAttribute('rotation');
 			var angleRadian = Math.atan2(-this.vitesse.z, this.vitesse.x);
-			rot.y = angleRadian * 180.0 / Math.PI;
+			rot.y = angleRadian * (180.0-90) / Math.PI;
 			this.gr.setAttribute('rotation', rot);
 		}
 	}
 
 	const angry_update = function() {
-		console.log("ANGRY AF");
-		// Do something here
+		var camera = document.getElementById("camera");
+		if(vec3Distance(camera.getAttribute("position"),this.gr.getAttribute('position')) < 2){
+			this.idx ++;
+			start_wait_time = null;
+			if(this.idx > this.chemin.length-1) 
+				return this.update = STATES["end"].update;
+
+			return this.update = STATES["walking"].update;
+		}
 	}
 
+	var start_wait_time = null;
 	const waiting_update = function() {
 		console.log("waiting update");
 		// Do something here
 		var camera = document.getElementById("camera");
-		if(!start_wait_time) var start_wait_time = new Date();
+		if(!start_wait_time) start_wait_time = new Date();
 
 		if(vec3Distance(camera.getAttribute("position"),this.gr.getAttribute('position')) < 2){
 			this.idx ++;
+			start_wait_time = null;
 			if(this.idx > this.chemin.length-1) 
 				return this.update = STATES["end"].update;
 
 			return this.update = STATES["walking"].update;
 		}
 
-		if(new Date()-start_wait_time >10000)
+		if(new Date()-start_wait_time >10000){
+			start_wait_time = null;
 			return this.update= STATES["angry"].update;
+		}
 
 	}
 
