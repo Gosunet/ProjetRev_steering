@@ -38,8 +38,8 @@ function main(){
 
 		if (this.vit > 0.00001) {
 			var rot = this.gr.getAttribute('rotation');
-			var angleRadian = Math.atan2(-this.vitesse.z, this.vitesse.x);
-			rot.y = angleRadian * (180.0-90) / Math.PI;
+			var angleRadian = Math.atan2(Fs.z, Fs.x);
+			rot.y = angleRadian * (180.0) / Math.PI;
 			this.gr.setAttribute('rotation', rot);
 		}
 	}
