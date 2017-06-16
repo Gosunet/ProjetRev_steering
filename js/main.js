@@ -1,6 +1,8 @@
 function main(){
 	
 	const walking_update = function() {
+		console.log("walking update");
+		console.log(current_state);
 		// Do something here
 		var cible = document.getElementById(this.chemin[this.idx]);
 		var C = cible.getAttribute("position");
@@ -12,7 +14,7 @@ function main(){
 		vec3Normaliser(Fs);
 
 		if (distance < 0.25) {
-			current_state = "waiting";
+			this.update= STATES["waiting"].update;
 			return;
 		}
 
@@ -45,12 +47,34 @@ function main(){
 	}
 
 	const angry_update = function() {
+		console.log("ANGRY AF");
 		// Do something here
 	}
 
 	const waiting_update = function() {
+		console.log("waiting update");
 		// Do something here
+		var camera = document.getElementById("camera");
+		if(!start_wait_time) var start_wait_time = new Date();
+
+		if(vec3Distance(camera.getAttribute("position"),this.gr.getAttribute('position')) < 2){
+			this.idx ++;
+			if(this.idx > this.chemin.length-1) 
+				return this.update = STATES["end"].update;
+
+			return this.update = STATES["walking"].update;
+		}
+
+		if(new Date()-start_wait_time >10000)
+			return this.update= STATES["angry"].update;
+
 	}
+
+	const end_update = function(){
+		this.idx = 0;
+		this.update = STATES["walking"].update;
+	}
+
 	const STATES = {
 		walking:{
 			update: walking_update
@@ -61,6 +85,9 @@ function main(){
 		waiting:{
 			update: waiting_update
 		},
+		end:{
+			update : end_update
+		}
 	};
 
 	var current_state = "walking";
