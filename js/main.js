@@ -1,47 +1,10 @@
 function main(){
 	
-	const STATES = {
-		walking:{
-			update: walking_update
-		},
-		angry:{
-			update: angry_update
-		},
-		waiting:{
-			update: waiting_update
-		},
-	};
-
-	var current_state = "walking";
-
 	const walking_update = function() {
 		// Do something here
-	}
-
-	const angry_update = function() {
-		// Do something here
-	}
-
-	const waiting_update = function() {
-		// Do something here
-	}
-
-	const update = function() {
-		STATES[current_state].update();
-		setInterval(anim, 20);
-	}
-
-	var scene = document.querySelector('a-scene');
-
-	// alert("PRET ? ");
-
-	var tux00 = document.getElementById('penguin');
-
-	var update_fct = function () {
 		var cible = document.getElementById(this.chemin[this.idx]);
 		var C = cible.getAttribute("position");
 		var P = this.gr.getAttribute('position');
-
 
 		var Fs = vec3Creer();
 		vec3Moins(Fs, C, P);
@@ -49,11 +12,8 @@ function main(){
 		vec3Normaliser(Fs);
 
 		if (distance < 0.25) {
-			if (this.idx == this.chemin.length - 1) {} else {
-				this.idx++;
-				cible = document.getElementById(this.chemin[this.idx]);
-				var C = cible.getAttribute("position");
-			}
+			current_state = "waiting";
+			return;
 		}
 
 		var k = 1.0;
@@ -83,6 +43,37 @@ function main(){
 			this.gr.setAttribute('rotation', rot);
 		}
 	}
+
+	const angry_update = function() {
+		// Do something here
+	}
+
+	const waiting_update = function() {
+		// Do something here
+	}
+	const STATES = {
+		walking:{
+			update: walking_update
+		},
+		angry:{
+			update: angry_update
+		},
+		waiting:{
+			update: waiting_update
+		},
+	};
+
+	var current_state = "walking";
+
+	var scene = document.querySelector('a-scene');
+
+	// alert("PRET ? ");
+
+	var tux00 = document.getElementById('penguin');
+
+	var update_fct = function () {
+	}
+
 	tux0 = {
 		cap: 0.0,
 		vit: 0.05,
@@ -98,13 +89,16 @@ function main(){
 			y: 0.0,
 			z: 0.0
 		},
-		chemin: ["camera","cible00", "cible02", "cible01", "cible04", "cible05"],
+		chemin: ["cible00", "cible02", "cible01", "cible04", "cible05"],
 		idx: 0,
 		gr: tux00,
-		update: update
+		update: STATES[current_state].update
 	};
 
 	function anim() {
 		tux0.update();
+		requestAnimationFrame(anim, 20);
 	}
+	anim();
 }
+main();
