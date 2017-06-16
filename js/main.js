@@ -1,8 +1,8 @@
 function main(){
 	
 	const STATES = {
-		following:{
-			update: following_update
+		walking:{
+			update: walking_update
 		},
 		angry:{
 			update: angry_update
@@ -12,9 +12,9 @@ function main(){
 		},
 	};
 
-	var current_state = "following";
+	var current_state = "walking";
 
-	const following_update = function() {
+	const walking_update = function() {
 		// Do something here
 	}
 
