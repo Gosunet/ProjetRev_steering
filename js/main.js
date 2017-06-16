@@ -46,6 +46,10 @@ function main(){
 
 	const angry_update = function() {
 		var camera = document.getElementById("camera");
+		if (!this.angry){
+			alert('Suis-moi !!!')
+			this.angry = true;
+		}
 		if(vec3Distance(camera.getAttribute("position"),this.gr.getAttribute('position')) < 2){
 			this.idx ++;
 			start_wait_time = null;
@@ -53,6 +57,7 @@ function main(){
 				return this.update = STATES["end"].update;
 
 			return this.update = STATES["walking"].update;
+			this.angry = false;
 		}
 	}
 
@@ -128,7 +133,8 @@ function main(){
 		chemin: ["cible00", "cible02", "cible01", "cible04", "cible05"],
 		idx: 0,
 		gr: tux00,
-		update: STATES[current_state].update
+		update: STATES[current_state].update,
+		angry: false
 	};
 
 	function anim() {
