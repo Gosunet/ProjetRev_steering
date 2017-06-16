@@ -56,8 +56,8 @@ function main(){
 			if(this.idx > this.chemin.length-1) 
 				return this.update = STATES["end"].update;
 
-			return this.update = STATES["walking"].update;
 			this.angry = false;
+			return this.update = STATES["walking"].update;
 		}
 	}
 
