@@ -97,8 +97,7 @@ function main(){
 
 	function anim() {
 		tux0.update();
-		requestAnimationFrame(anim, 20);
 	}
-	anim();
+	setInterval(anim,40);
 }
 main();
